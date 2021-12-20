@@ -7,7 +7,7 @@ const questions = [
         "3. alerts",
         "4. numbers",
       ],
-      correct: "option3",
+      correct: "3. alerts",
     },
     {
       question:
@@ -18,7 +18,7 @@ const questions = [
         "3. parenthesis",
         "4. square brackets",
       ],
-      correct: "option3",
+      correct: "3. parenthesis",
     },
     {
       question:
@@ -29,7 +29,7 @@ const questions = [
         "3. booleans",
         "4. all of above",
       ],
-      correct: "option4",
+      correct: "4. all of above",
     },
     {
       question: "String values must be enclosed within_____ when being assigned to variables.",
@@ -39,7 +39,7 @@ const questions = [
         "3. quotes",
         "4. parenthesis",
       ],
-      correct: "option3",
+      correct: "3. quotes",
     },
     {
       question:
@@ -50,6 +50,6 @@ const questions = [
         "3. for loops",
         "4. console.log",
       ],
-      correct: "option1",
+      correct: "4. console.log",
     },
   ];

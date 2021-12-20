@@ -1,11 +1,11 @@
 // Start the quiz with a timer set to 60
 // Timer left will also be the final score
 
-const timeLeft = 60;
-const timerID;
+let timeLeft = 60;
+let timerID = 0;
 const timerEl = document.getElementById("timer");
 const startButton = document.getElementById("start-button");
-const nextButton = document.getElementsById("next-button")
+const nextButton = document.getElementById("next-button")
 const questionContainerEl = document.getElementById("question-card");
 const startContainerEl = document.getElementById("intro");
 const questionEl = document.getElementById("question");
@@ -64,12 +64,17 @@ function setNextQuestion() {
 
 // Display questions
 function showQuestion(question) {
+    if (question == null) {
+      questionEl.innerText = "All Done.";
+      document.getElementById("results").classList.remove("hide");
+      return;
+    }
     questionEl.innerText = question.question
     question.answers.forEach(answer => {
         const button = document.createElement("button")
-        button.innerText = answer.text
+        button.innerText = answer
         button.classList.add("button")
-        if (answer.correct) {
+        if (answer == question.correct) {
             button.dataset.correct = answer.correct
         }
         button.addEventListener("click", selectAnswer)
@@ -82,11 +87,12 @@ function showQuestion(question) {
 function resetState() {
     clearStatusClass(document.body)
     nextButton.classList.add("hide")
-    checkAnswerEl.classList.add("hide")
+    // checkAnswerEl.classList.add("hide")
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild
             (answerButtonsEl.firstChild)
     }
+    // checkAnswerEl.innerHTML = "";
 };
 
 
@@ -120,6 +126,8 @@ function selectAnswer(e) {
         startButton.classList.remove("hide")
         saveScore();
     }
+    currentQuestionIndex++;
+    setNextQuestion();
 };
 
 
@@ -146,10 +154,10 @@ function saveScore() {
     clearInterval(timerID);
     timerEl.textContent = "Time: " + timeLeft;
     setTimeout(function () {
-        //localStorage.setItem("scores", JSON.stringify(scores));
+        localStorage.setItem("scores", JSON.stringify(scores));
         questionContainerEl.classList.add("hide");
         document.getElementById("score-container").classList.remove("hide");
-        document.getElementById("your-score").textContent = "Your final score is " + timeLeft;
+        // document.getElementById("your-score").textContent = "Your final score is " + timeLeft;
 
     }, 2000)
 };
@@ -164,7 +172,7 @@ var loadScores = function () {
 
     // Convert scores from stringfield format into array
     savedScores = JSON.parse(savedScores);
-    var initials = document.querySelector("#initials-field").value;
+    var initials = document.getElementById("initial-space").value;
     var newScore = {
         score: timeLeft,
         initials: initials
@@ -192,19 +200,15 @@ function showHighScores(initials) {
         scores.push(score)
     }
 
-    var highScoreEl = document.getElementById("highscore");
-    highScoreEl.innerHTML = "";
-    //console.log(scores)
+    var highScoreEl = document.getElementById("score-container");
+    highScoreEl.classList.remove("hide");
+    console.log(scores)
     for (i = 0; i < scores.length; i++) {
         var div1 = document.createElement("div");
         div1.setAttribute("class", "name-div");
-        div1.innerText = scores[i].initials;
-        var div2 = document.createElement("div");
-        div2.setAttribute("class", "score-div");
-        div2.innerText = scores[i].timeLeft;
+        div1.innerText = "User: " + scores[i].initials + " Score: " + scores[i].timeLeft;
 
         highScoreEl.appendChild(div1);
-        highScoreEl.appendChild(div2);
     }
 
     localStorage.setItem("scores", JSON.stringify(scores));
@@ -217,8 +221,9 @@ viewHighScores.addEventListener("click", showHighScores);
 
 
 submitButton.addEventListener("click", function (event) {
-    event.preventDefault()
-    var initials = document.querySelector("#initials-field").value;
+    event.preventDefault();
+    var initials = document.getElementById("initial-space").value;
+    console.log(initials);
     showHighScores(initials);
 });
 
@@ -229,8 +234,8 @@ restartButton.addEventListener("click", function () {
 });
 
 
-// Clear localStorage items 
+// Clear localStorage items
 clearScoreButton.addEventListener("click", function () {
     localStorage.clear();
-    document.getElementById("highscore").innerHTML = "";
+    document.getElementById("score-container").innerHTML = "";
 });
