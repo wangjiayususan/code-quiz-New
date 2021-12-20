@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Code Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+
+    <header>
+      <div class="score">
+        <a id="highscores-link">View High Scores</a>
+      </div>
+      <div id="timer" class="timer">
+        Time: 60
+      </div>
+    </header>
+
+    <main>
+      <section id="intro" class="intro">
+        <h3>Coding Quiz Challenge</h3>
+        <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+        <button class="start-button">
+          Start Quiz!
+        </button>
+        <button id="next-button" class="next-btn btn hide">
+          Next
+        </button>
+      </section>
+
+      <section id="question-card" class="question-card hide">
+        <h3 id="question">question</h3>
+        <div id="answers-container">
+          <button class="button">Answer 1</button>
+          <button class="button">Answer 2</button>
+          <button class="button">Answer 3</button>
+          <button class="button">Answer 4</button>
+        </div>
+        <h2 class="check-answer" id="check-answer"></h2>
+      </section>
+
+      <section id="results" class="results hide">
+        <h3>All done!</h3>
+        <h2 id="your-final-score"></h2>
+        <label id="initials">Enter initials:</label> 
+        <input type="text" id="initial-space" maxlength="3" placeholder="" />
+        <button id="submit-button">Submit</button>
+      </section>
+
+      <section id="high-scores" class="high-scores hide">
+        <h3>High Scores</h3>
+        <div id="high-score-list"></div>
+        <div>
+          <button class="go-back-button">Go back</button>
+          <button class="clear-button" id="clear-scores-button">Clear high scores</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="question.js"></script>
+    <script src="quiz.js"></script>
+
+  </body>
+</html>
